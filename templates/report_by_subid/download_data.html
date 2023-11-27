@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1 class="mt-4">Звірити дані по SubId</h1>
+<div class="row">
+    <div class="col-md-8 offset-md-2">
+        <form method="post" action="">
+            {% csrf_token %}
+
+            <div class="row justify-content-center">
+                <div class="col-md-8 mx-auto">
+                    <p>{{ form.date_month.label_tag }} {{ form.date_month }}</p>
+                    <p>{{ form.first_date.label_tag }} {{ form.first_date }}</p>
+                    <p>{{ form.second_date.label_tag }} {{ form.second_date }}</p>
+
+                </div>
+
+            </div>
+
+           
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-md-8 mx-auto">
+                    <button type="submit" class="btn btn-dark">Запустити скрипти</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<style>
+
+
+
+
+.form-check-label {
+    margin-left: 0;
+}
+
+
+</style>
+
+{% endblock %}

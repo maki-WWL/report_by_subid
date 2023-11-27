@@ -1,0 +1,124 @@
+body {
+    margin-top: 20px;
+}
+
+.sidebar-nav {
+    padding: 0;
+    list-style: none;
+}
+
+a {
+    text-decoration: none;
+}
+
+/* Стилізація заголовка */
+h1 {
+    color: #333;
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+/* Стилізація форми */
+.form-group {
+    margin-bottom: 20px;
+}
+
+label {
+    font-weight: bold;
+    margin-left: 190px;
+}
+
+/* Стилізація поля вводу дати */
+.from-date {
+    margin-left: 190px;
+    display: block;
+    width: 50%;
+    height: 40px;
+    padding: 8px 12px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+}
+
+/* Приховання стрілок вибору дати */
+.from-date::-webkit-inner-spin-button,
+.from-date::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+    display: none;
+}
+
+/* Заміна візуального стилю для поля вводу дати в Firefox */
+.from-date::-moz-focus-inner {
+    border: 0;
+}
+
+.from-date.disabled,
+.from-date.disabled {
+    opacity: 0.6;
+    /* Зменшення прозорості для позначення неактивного поля */
+    cursor: not-allowed;
+    /* Зміна курсору на "заборонено" */
+}
+
+/* Стилізація поля вводу дати з класом .to-date */
+.to-date {
+    margin-left: 190px;
+    display: block;
+    width: 50%;
+    height: 40px;
+    padding: 8px 12px;
+    font-size: 16px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+}
+
+/* Приховання стрілок вибору дати для .to-date */
+.to-date::-webkit-inner-spin-button,
+.to-date::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+    display: none;
+}
+
+/* Заміна візуального стилю для поля вводу дати в Firefox для .to-date */
+.to-date::-moz-focus-inner {
+    border: 0;
+}
+
+/* Відображення календаря на всю площину поля вводу дати */
+/* .from-date::-webkit-calendar-picker-indicator {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    cursor: pointer;
+} */
+
+/* Відображення календаря на всю площину поля вводу дати для .to-date */
+/* .to-date::-webkit-calendar-picker-indicator {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    cursor: pointer;
+} */
+
+button[type="submit"] {
+    padding: 15px 20px;
+    margin-left: 570px;
+    margin-top: 20px;
+    background-color: darkslateblue;
+    color: whitesmoke;
+}
+
+body {
+    margin-top: 200px;
+}
