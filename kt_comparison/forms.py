@@ -2,7 +2,13 @@ from django import forms
 
 
 class DateForm(forms.Form):
-    date_month = forms.DateField(
+    from_date_month = forms.DateField(
+        required=True,
+        widget=forms.DateInput(
+            attrs={"type": "date", "class": "from-date"}
+        ),
+    )
+    to_date_month = forms.DateField(
         required=True,
         widget=forms.DateInput(
             attrs={"type": "date", "class": "from-date"}

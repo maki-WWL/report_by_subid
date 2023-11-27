@@ -17,50 +17,57 @@ def should_be_deleted(row):
     return True
 
 
-def create_excel(date_of_file: str, first_date_str: str, second_date_str: str) -> None:
+def create_excel(dates_of_files: str, first_date_str: str, second_date_str: str) -> None:
     base_dir = os.path.join('kt_1')
-    file_name = f"{date_of_file.split('-')[0]}-{date_of_file.split('-')[1]}.csv"
+    excel_writer = pd.ExcelWriter('result.xlsx', engine='openpyxl')
 
-    first_file_path = os.path.join(base_dir, first_date_str, file_name)
-    second_file_path = os.path.join(base_dir, second_date_str, file_name)
+    for date_of_file in dates_of_files:
+        file_name = f"{date_of_file.split('-')[0]}-{date_of_file.split('-')[1]}.csv"
 
-    df1 = pd.read_csv(first_file_path, quotechar='"', sep=';')
-    df2 = pd.read_csv(second_file_path, quotechar='"', sep=';')
+        first_file_path = os.path.join(base_dir, first_date_str, file_name)
+        second_file_path = os.path.join(base_dir, second_date_str, file_name)
 
-    df1.set_index('SubId', inplace=True)
-    df2.set_index('SubId', inplace=True)
+        df1 = pd.read_csv(first_file_path, quotechar='"', sep=';')
+        df2 = pd.read_csv(second_file_path, quotechar='"', sep=';')
 
-    combined = pd.merge(df1.reset_index(), df2.reset_index(), on='SubId', how='outer', suffixes=('_file1', '_file2'))
+        df1.set_index('SubId', inplace=True)
+        df2.set_index('SubId', inplace=True)
 
-    only_in_df1 = combined[combined['Доход_file2'].isna()]
-    only_in_df2 = combined[combined['Доход_file1'].isna()]
+        combined = pd.merge(df1.reset_index(), df2.reset_index(), on='SubId', how='outer', suffixes=('_file1', '_file2'))
 
-    combined['Доход_file1'] = pd.to_numeric(combined['Доход_file1'], errors='coerce')
-    combined['Доход_file2'] = pd.to_numeric(combined['Доход_file2'], errors='coerce')
+        only_in_df1 = combined[combined['Доход_file2'].isna()]
+        only_in_df2 = combined[combined['Доход_file1'].isna()]
 
-    diff = combined[(~combined['Доход_file1'].isna() & ~combined['Доход_file2'].isna()) & (combined['Доход_file1'] != combined['Доход_file2'])]
+        combined['Доход_file1'] = pd.to_numeric(combined['Доход_file1'], errors='coerce')
+        combined['Доход_file2'] = pd.to_numeric(combined['Доход_file2'], errors='coerce')
 
-    diff['Різниця'] = diff['Доход_file2'].fillna(0) - diff['Доход_file1'].fillna(0)
+        diff = combined[(~combined['Доход_file1'].isna() & ~combined['Доход_file2'].isna()) & (combined['Доход_file1'] != combined['Доход_file2'])]
 
-    first_column_name = combined.columns[0]
+        diff['Різниця'] = diff['Доход_file2'].fillna(0) - diff['Доход_file1'].fillna(0)
 
-    empty_row_1 = pd.DataFrame(np.nan, index=[0], columns=combined.columns)
-    empty_row_1[first_column_name] = 'Є у першому файлі, немає в другому'
-        
-    empty_row_2 = pd.DataFrame(np.nan, index=[0], columns=combined.columns)
-    empty_row_2[first_column_name] = 'Є у другому файлі, немає в першому'
+        first_column_name = combined.columns[0]
 
-    result = pd.concat([diff, empty_row_1, only_in_df1, empty_row_2, only_in_df2])
+        empty_row_1 = pd.DataFrame(np.nan, index=[0], columns=combined.columns)
+        empty_row_1[first_column_name] = 'Є у першому файлі, немає в другому'
+            
+        empty_row_2 = pd.DataFrame(np.nan, index=[0], columns=combined.columns)
+        empty_row_2[first_column_name] = 'Є у другому файлі, немає в першому'
 
-    result.to_csv('result.csv', sep=';', encoding='utf-8', index=False)
+        result = pd.concat([diff, empty_row_1, only_in_df1, empty_row_2, only_in_df2])
 
-    df = pd.read_csv('result.csv', sep=';')
+        result.to_csv('result.csv', sep=';', encoding='utf-8', index=False)
 
-    df = df[~df.apply(should_be_deleted, axis=1)]
+        df = pd.read_csv('result.csv', sep=';')
 
-    df.to_excel('result.xlsx', index=False)
+        df = df[~df.apply(should_be_deleted, axis=1)]
 
-    os.remove('result.csv')
+        sheet_name = date_of_file
+
+        df.to_excel(excel_writer, sheet_name=sheet_name, index=False)
+
+        os.remove('result.csv')
+
+    excel_writer.close()
 
 
 
@@ -87,5 +94,5 @@ def resize_table() -> None:
 
 
 if __name__ == "__main__":
-    create_excel('3-2023', '2023-11-23', '2023-11-24')
-    resize_table()
+    create_excel(['2-2023', '3-2023'], '2023-11-23', '2023-11-24')
+    # resize_table()

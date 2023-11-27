@@ -1,6 +1,9 @@
 import os
 
 from pathlib import Path
+from loggerflow.backends.telegram import TelegramBackend
+from loggerflow import LoggerFlow
+
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -88,3 +91,18 @@ STATICFILES_DIRS = [
 ]
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+CELERY_BROKER_URL = "redis://redis:6379/0"
+CELERY_RESULT_BACKEND = "redis://redis:6379/0"
+
+
+backend = TelegramBackend(
+    token="6059368231:AAGJQrH6i9OsOKmFF7xwLwXdJm-hsMTLcc0",
+    chat_id=-778745824,
+    authors=[
+        "@Max_PythonWWL",
+    ],
+)
+
+lf = LoggerFlow(project_name="Report by SubID", backend=backend, disable=False)
+lf.run()

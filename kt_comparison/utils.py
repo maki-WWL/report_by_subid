@@ -1,4 +1,5 @@
 import pandas as pd
+from dateutil.relativedelta import relativedelta
 
 from datetime import datetime, timedelta
 
@@ -42,6 +43,20 @@ def get_week_list(date_from, date_to, delimiter=4):
 
     print(res_list)
     return res_list
+
+
+def get_month_range(date_from, date_to):
+    # date_from = datetime.strptime(date_from, '%d.%m.%Y')
+    # date_to = datetime.strptime(date_to, '%d.%m.%Y')
+
+    current_date = date_from
+    months = []
+
+    while current_date <= date_to:
+        months.append(f"{current_date.month}-{current_date.year}")
+        current_date += relativedelta(months=1)
+
+    return months
 
 
 if __name__ == "__main__":
