@@ -17,9 +17,9 @@ def should_be_deleted(row):
     return True
 
 
-def create_excel(dates_of_files: str, first_date_str: str, second_date_str: str) -> None:
-    base_dir = os.path.join('kt_1')
-    excel_writer = pd.ExcelWriter('result.xlsx', engine='openpyxl')
+def create_excel(dates_of_files: str, first_date_str: str, second_date_str: str, folder_path: str) -> None:
+    base_dir = os.path.join(folder_path)
+    excel_writer = pd.ExcelWriter(f'result_{folder_path}.xlsx', engine='openpyxl')
 
     for date_of_file in dates_of_files:
         file_name = f"{date_of_file.split('-')[0]}-{date_of_file.split('-')[1]}.csv"
@@ -94,5 +94,5 @@ def resize_table() -> None:
 
 
 if __name__ == "__main__":
-    create_excel(['2-2023', '3-2023'], '2023-11-23', '2023-11-24')
+    create_excel(['5-2023', '6-2023'], '2023-11-21', '2023-11-22')
     # resize_table()

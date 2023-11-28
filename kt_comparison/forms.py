@@ -26,3 +26,9 @@ class DateForm(forms.Form):
             attrs={"type": "date", "class": "to-date"}
         ),
     )
+    checkbox_tm = forms.BooleanField(
+        required=False, label='Keitaro_1', widget=forms.CheckboxInput(attrs={"class": "form-check-input"})
+    )
+    checkbox_tw = forms.BooleanField(
+        required=False, label='Keitaro_2', widget=forms.CheckboxInput(attrs={"class": "form-check-input"})
+    )

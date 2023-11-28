@@ -13,7 +13,14 @@
                     <p>{{ form.to_date_month.label_tag }} {{ form.to_date_month }}</p>
                     <p>{{ form.first_date.label_tag }} {{ form.first_date }}</p>
                     <p>{{ form.second_date.label_tag }} {{ form.second_date }}</p>
-
+                    <div class="form-check">
+                        {{ form.checkbox_tm}}
+                        <label class="form-check-label" for="{{ form.checkbox_tm.id_for_label }}">{{ form.checkbox_tm.label }}</label>
+                    </div>
+                    <div class="form-check">
+                        {{ form.checkbox_tw}}
+                        <label class="form-check-label" for="{{ form.checkbox_tw.id_for_label }}">{{ form.checkbox_tw.label }}</label>
+                    </div>
                 </div>
 
             </div>
