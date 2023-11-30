@@ -30,10 +30,13 @@ def create_excel(dates_of_files: str, first_date_str: str, second_date_str: str,
         df1 = pd.read_csv(first_file_path, quotechar='"', sep=';')
         df2 = pd.read_csv(second_file_path, quotechar='"', sep=';')
 
+        df1['SubId'] = df1['SubId'].astype(str)
+        df2['SubId'] = df2['SubId'].astype(str)
+
         df1.set_index('SubId', inplace=True)
         df2.set_index('SubId', inplace=True)
 
-        combined = pd.merge(df1.reset_index(), df2.reset_index(), on='SubId', how='outer', suffixes=('_file1', '_file2'))
+        combined = pd.merge(df1, df2, on='SubId', how='outer', suffixes=('_file1', '_file2'))
 
         only_in_df1 = combined[combined['Доход_file2'].isna()]
         only_in_df2 = combined[combined['Доход_file1'].isna()]
