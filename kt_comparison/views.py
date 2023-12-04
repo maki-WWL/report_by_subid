@@ -33,6 +33,7 @@ class IndexView(generic.View):
 
             checkbox_tm = form.cleaned_data["checkbox_tm"]
             checkbox_tw = form.cleaned_data["checkbox_tw"]
+            checkbox_kt_3 = form.cleaned_data["checkbox_kt_3"]
 
             created_files = []
             if checkbox_tm:
@@ -41,6 +42,9 @@ class IndexView(generic.View):
             if checkbox_tw:
                 create_excel(formatted_date, first_date_str, second_date_str, folder_path='kt_2')
                 created_files.append('result_kt_2.xlsx')
+            if checkbox_kt_3:
+                create_excel(formatted_date, first_date_str, second_date_str, folder_path='kt_3')
+                created_files.append('result_kt_3.xlsx')
             # resize_table()
 
             if len(created_files) == 1:
