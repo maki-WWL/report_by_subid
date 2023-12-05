@@ -12,4 +12,5 @@ typing-extensions==4.8.0
 tzdata==2023.3
 celery==5.3.6
 redis==5.0.1
-loggerflow==0.0.2
+loggerflow==0.0.4
+python-dotenv==1.0.0

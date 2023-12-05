@@ -33,8 +33,8 @@ def create_excel(dates_of_files: str, first_date_str: str, second_date_str: str,
         df1['SubId'] = df1['SubId'].astype(str)
         df2['SubId'] = df2['SubId'].astype(str)
 
-        df1.set_index('SubId', inplace=True)
-        df2.set_index('SubId', inplace=True)
+        # df1.set_index('SubId', inplace=True)
+        # df2.set_index('SubId', inplace=True)
 
         combined = pd.merge(df1, df2, on='SubId', how='outer', suffixes=('_file1', '_file2'))
 
