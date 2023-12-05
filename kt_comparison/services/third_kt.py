@@ -44,7 +44,7 @@ class ThirdKt:
                 'password': os.environ.get('THIRD_KEITARO_PASSWORD'),
             }
 
-            response = requests.post('https://thirdtrykt.com/admin/', params=params, headers=headers, json=json_data)
+            response = session.post('https://thirdtrykt.com/admin/', params=params, headers=headers, json=json_data)
             return session
         
     def _get_cookies(self):

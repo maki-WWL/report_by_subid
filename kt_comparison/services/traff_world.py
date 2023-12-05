@@ -211,7 +211,7 @@ class WWLTraffWorld:
                     print(f"Помилка при завантаженні файлу: {response.status_code}")
             except JSONDecodeError:
                 print('exception')
-                new_date_range = get_week_list(month[0], month[1], delimiter=8)
+                new_date_range = get_week_list(month[0], month[1], delimiter=10)
 
                 for week in new_date_range: 
                     response = self.get_data(week[0], week[1])
@@ -276,5 +276,5 @@ class WWLTraffWorld:
 
 
 if __name__ == "__main__":
-    obj = WWLTraffWorld('2023-01-01', '2023-10-31')
+    obj = WWLTraffWorld('2023-01-01', '2023-11-30')
     obj.download_file()

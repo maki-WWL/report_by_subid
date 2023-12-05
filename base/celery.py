@@ -15,7 +15,7 @@ app.conf.timezone = "Europe/Kiev"
 app.conf.beat_schedule = {
     "run_script": {
         "task": "kt_comparison.tasks.run_script",
-        "schedule": crontab(minute=30, hour=15),
+        "schedule": crontab(minute=1, hour=16),
     },
 }
 
