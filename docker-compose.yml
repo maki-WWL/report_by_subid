@@ -18,7 +18,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.celery
-    command: celery -A report_by_subid worker --loglevel=info
+    command: celery -A base worker --loglevel=info
     volumes:
       - .:/code
     depends_on:
@@ -28,7 +28,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.celery
-    command: celery -A report_by_subid beat --loglevel=info
+    command: celery -A base beat --loglevel=info
     volumes:
       - .:/code
     depends_on:
