@@ -5,9 +5,9 @@ from celery.schedules import crontab
 from base import settings
 
 
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "report_by_subid.settings")
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "base.settings")
 
-app = Celery("report_by_subid")
+app = Celery("base")
 app.config_from_object("django.conf:settings", namespace="CELERY")
 
 app.conf.timezone = "Europe/Kiev"
