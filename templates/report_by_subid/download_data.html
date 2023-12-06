@@ -3,6 +3,7 @@
 {% block content %}
 <h1 class="mt-4">Звірити дані по SubId</h1>
 <div class="row">
+    <a href="{% url 'subid_check' %}">Знайти Subid</a>
     <div class="col-md-8 offset-md-2">
         <form method="post" action="">
             {% csrf_token %}
