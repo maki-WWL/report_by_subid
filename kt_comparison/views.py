@@ -4,10 +4,13 @@ from django.shortcuts import redirect, render
 from django.views import generic
 from datetime import datetime
 from zipfile import ZipFile
+from django.views.generic.edit import FormView
+from django.urls import reverse_lazy
 
-from kt_comparison.forms import DateForm
+from kt_comparison.forms import DateForm, SubidForm
 from kt_comparison.services.compare_files import create_excel, resize_table
 from kt_comparison.utils import get_month_range
+from kt_comparison.services.find_subid import find_subid
 
 
 class IndexView(generic.View):
@@ -71,3 +74,15 @@ class IndexView(generic.View):
             for file in file_paths:
                 zipf.write(file, os.path.basename(file))
         return zip_file_name
+
+
+class SubidFormView(FormView):
+    template_name = 'report_by_subid/subid_template.html'
+    form_class = SubidForm
+    success_url = reverse_lazy('subid_check')  # Замініть 'subid_check' на назву вашого URL
+
+    def form_valid(self, form):
+        # Виклик функції find_subid і передача результату до контексту шаблону
+        subid = form.cleaned_data['subid']
+        result = find_subid(subid)
+        return self.render_to_response(self.get_context_data(form=form, result=result))

@@ -246,10 +246,12 @@ class TraffManagerChecker:
                 'profit_confirmed',
             ],
             'grouping': [
+                'sub_id',
                 'campaign',
                 'day',
-                'sub_id',
                 'campaign_id',
+                'offer',
+                'affiliate_network',
                 'ts',
                 'datetime',
             ],
@@ -383,6 +385,12 @@ class ThirdKtChecker:
             ],
             'grouping': [
                 'sub_id',
+                'campaign',
+                'day',
+                'campaign_id',
+                'offer',
+                'affiliate_network',
+                'ts',
                 'datetime',
             ],
             'filters': [

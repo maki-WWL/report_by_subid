@@ -35,3 +35,6 @@ class DateForm(forms.Form):
     checkbox_kt_3 = forms.BooleanField(
         required=False, label='Keitaro_3', widget=forms.CheckboxInput(attrs={"class": "form-check-input"})
     )
+
+class SubidForm(forms.Form):
+    subid = forms.CharField(label='SubID', max_length=100)
