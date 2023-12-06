@@ -7,6 +7,8 @@ from openpyxl import Workbook
 from openpyxl.utils.dataframe import dataframe_to_rows
 from openpyxl.utils import get_column_letter
 
+from kt_comparison.services.checkers import WWLTraffWorldChecker, TraffManagerChecker, ThirdKtChecker
+
 
 def should_be_deleted(row):
     for item in row:
@@ -63,6 +65,27 @@ def create_excel(dates_of_files: str, first_date_str: str, second_date_str: str,
         df = pd.read_csv('result.csv', sep=';')
 
         df = df[~df.apply(should_be_deleted, axis=1)]
+
+        #delete 23:59
+
+        subids = df['SubId'].dropna().unique().tolist()
+
+        if folder_path == 'kt_1':
+            delete_subid = []
+            print(len(subids))
+            tm_checker = TraffManagerChecker()
+            delete_subid = tm_checker.get_delete_list(subids)
+            print(len(delete_subid))
+
+        if folder_path == 'kt_2':
+            wt_checker = WWLTraffWorldChecker()
+            delete_subid = wt_checker.get_delete_list(subids)
+
+        if folder_path == 'kt_3':
+            third_kt_checker = ThirdKtChecker()  
+            delete_subid = third_kt_checker.get_delete_list(subids)      
+
+        df = df[~df['SubId'].isin(delete_subid)]
 
         sheet_name = date_of_file
 
