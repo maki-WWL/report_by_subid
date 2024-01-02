@@ -13,7 +13,6 @@ from kt_comparison.services.third_kt import ThirdKt
 @shared_task
 def run_script():
     today = datetime.now()
-    today =datetime(year=2023, month=12, day=11)
 
     # Визначаємо перший день попереднього місяця
     if today.month == 1:
