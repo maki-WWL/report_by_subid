@@ -4,7 +4,12 @@ import sys
 
 from json import JSONDecodeError
 from datetime import datetime
+from dotenv import load_dotenv
+
+load_dotenv()
+
 sys.path.append('C:\Maki\WWL\\report_by_subid')
+
 from kt_comparison.utils import get_date_list, get_week_list
 
 
@@ -48,10 +53,7 @@ class ThirdKt:
             return session
         
     def _get_cookies(self):
-        return {
-            'states': 'v1eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJsb2dpbiI6IjAwNGFhZmY2ZjA4ZDlmMDcxMDNkM2Y0ZTVkMzJmZTcxIiwicGFzc3dvcmQiOiIlMjQyeSUyNDEwJTI0d0lXaEphZ3dyT2dHZFFjaDdKbUVvZWpIcUxVV1N3SUFKMTFtMEVTZDU1Y2VoYVJkVTExaDYiLCJ0aW1lc3RhbXAiOjE3MDE2OTUyNzB9.SQB3RFdhLvFnov-3X_E2uG39CNnESMMDxhKUPw1KQak',
-            'keitaro': 'kek1bueuhpnmrgj5afsuoihsds',
-        }
+        return self.session.cookies.get_dict()
 
     def get_data(self, date_from, date_to):
         session = self.session
@@ -160,9 +162,7 @@ class ThirdKt:
             try:
                 response = self.get_data(month[0], month[1])
                 
-                cookies = {
-                    'keitaro': 'kek1bueuhpnmrgj5afsuoihsds',
-                }
+                cookies = self._get_cookies()
 
                 headers = {
                     'authority': 'thirdtrykt.com',
@@ -213,9 +213,7 @@ class ThirdKt:
                     response = self.get_data(week[0], week[1])
                     print(response)
                 
-                    cookies = {
-                        'keitaro': 'kek1bueuhpnmrgj5afsuoihsds',
-                    }
+                    cookies = self._get_cookies()
 
                     headers = {
                         'authority': 'thirdtrykt.com',

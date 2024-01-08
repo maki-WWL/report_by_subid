@@ -4,6 +4,9 @@ import sys
 
 from json import JSONDecodeError
 from datetime import datetime
+from dotenv import load_dotenv
+
+load_dotenv()
 
 sys.path.append('C:\Maki\WWL\\report_by_subid')
 
@@ -115,10 +118,7 @@ class TraffManager:
                 'offer',
                 'ts',
             ]
-        cookies = {
-            'states': 'v1eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJsb2dpbiI6IjkyYWJiNTNmODM1YTZmMWM2YzM5YWI5YzliNzU3ZGU2IiwicGFzc3dvcmQiOiIlMjQyeSUyNDEwJTI0RXBrand0WklkQW5HbmFvRXZwRHdqLlFvJTJGR0ptS3lhY20wNUxlYTRrcXdpUVVHcmdHUTk4bSIsInRpbWVzdGFtcCI6MTY5OTI2MzU3MX0.259o3FVLewfnPr2vFhm4ywCGmqU4yzyf7x5pxE6fDgA',
-            'keitaro': 'su9ds6glabmtkq8anehrcfvfdg',
-        }
+        cookies = self.session.cookies.get_dict()
 
         headers = {
             'authority': 'traff-manager.com',
@@ -155,9 +155,7 @@ class TraffManager:
             try:
                 response = self.get_data(month[0], month[1])
                 
-                cookies = {
-                    'keitaro': 'su9ds6glabmtkq8anehrcfvfdg',
-                }
+                cookies = self.session.cookies.get_dict()
 
                 headers = {
                     'authority': 'traff-manager.com',
@@ -208,9 +206,8 @@ class TraffManager:
                     response = self.get_data(week[0], week[1])
                     print(response)
                 
-                    cookies = {
-                        'keitaro': 'su9ds6glabmtkq8anehrcfvfdg',
-                    }
+                    cookies = self.session.cookies.get_dict()
+
                     headers = {
                         'authority': 'traff-manager.com',
                         'accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7',

@@ -172,9 +172,7 @@ class WWLTraffWorld:
         for month in date_range:
             try:
                 response = self.get_data(month[0], month[1])
-                cookies = {
-                    'keitaro': 'rsoro11u9e93qhvkfgsj251hnj',
-                }
+                cookies = self._get_cookies()
                 headers = {
                     'authority': 'wwltraffworld.com',
                     'accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7',
@@ -216,9 +214,7 @@ class WWLTraffWorld:
                 for week in new_date_range: 
                     response = self.get_data(week[0], week[1])
                     print(response)
-                    cookies = {
-                        'keitaro': 'rsoro11u9e93qhvkfgsj251hnj',
-                    }
+                    cookies = self._get_cookies()
                     headers = {
                         'authority': 'wwltraffworld.com',
                         'accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7',
@@ -276,5 +272,5 @@ class WWLTraffWorld:
 
 
 if __name__ == "__main__":
-    obj = WWLTraffWorld('2023-01-01', '2023-11-30')
+    obj = WWLTraffWorld('2023-11-01', '2023-11-30')
     obj.download_file()
