@@ -29,11 +29,14 @@ def create_excel(dates_of_files: str, first_date_str: str, second_date_str: str,
         first_file_path = os.path.join(base_dir, first_date_str, file_name)
         second_file_path = os.path.join(base_dir, second_date_str, file_name)
 
-        df1 = pd.read_csv(first_file_path, quotechar='"', sep=';')
-        df2 = pd.read_csv(second_file_path, quotechar='"', sep=';')
-
+        df1 = pd.read_csv(first_file_path, quotechar='"')
+        df2 = pd.read_csv(second_file_path, quotechar='"')
+        print(df1.columns)
         df1['SubId'] = df1['SubId'].astype(str)
         df2['SubId'] = df2['SubId'].astype(str)
+
+        df1.drop_duplicates(subset=['SubId'], inplace=True)
+        df2.drop_duplicates(subset=['SubId'], inplace=True)
 
         # df1.set_index('SubId', inplace=True)
         # df2.set_index('SubId', inplace=True)
