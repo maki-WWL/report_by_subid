@@ -1,3 +1,4 @@
+import time
 import requests
 import os
 import sys
@@ -54,6 +55,7 @@ class TraffManager:
 
     def get_data(self, date_from, date_to):
         session = self.session
+        print(date_from, date_to)
 
         json_data = {
             'range': {
@@ -118,8 +120,7 @@ class TraffManager:
                 'offer',
                 'ts',
             ]
-        cookies = self.session.cookies.get_dict()
-
+        cookies = session.cookies.get_dict()
         headers = {
             'authority': 'traff-manager.com',
             'accept': 'application/json, text/plain, */*',
@@ -142,9 +143,12 @@ class TraffManager:
             'object': 'reports.build',
         }
 
-        
+        time.sleep(5)
+        print(params, json_data, headers)
         response = session.post('https://traff-manager.com/admin/', params=params, cookies=cookies, headers=headers, json=json_data)
-        return response.json()
+        data = response.json()
+        return data
+
 
     def download_file(self):
         session = self.session
@@ -155,7 +159,7 @@ class TraffManager:
             try:
                 response = self.get_data(month[0], month[1])
                 
-                cookies = self.session.cookies.get_dict()
+                cookies = session.cookies.get_dict()
 
                 headers = {
                     'authority': 'traff-manager.com',
@@ -200,13 +204,16 @@ class TraffManager:
 
             except JSONDecodeError:
                 print('exception')
-                new_date_range = get_week_list(month[0], month[1], 8)
+                new_date_range = get_week_list(month[0], month[1], 15)
 
                 for week in new_date_range: 
-                    response = self.get_data(week[0], week[1])
+                    try:
+                        response = self.get_data(week[0], week[1])
+                    except JSONDecodeError:
+                        response = self.get_data(week[0], week[1])
                     print(response)
                 
-                    cookies = self.session.cookies.get_dict()
+                    cookies = session.cookies.get_dict()
 
                     headers = {
                         'authority': 'traff-manager.com',
@@ -231,7 +238,7 @@ class TraffManager:
                         f'https://traff-manager.com/exports/{file_name}',
                         cookies=cookies,
                         headers=headers,
-                    )
+                    )                    
 
                     if response.status_code == 200:
                         date = datetime.strptime(month[0], '%Y-%m-%d')
@@ -271,6 +278,6 @@ class TraffManager:
 
 
 if __name__ == "__main__":
-    obj = TraffManager('2022-05-01', '2023-10-31')
-    # obj.get_data('2022-12-01', '2022-12-31')
+    obj = TraffManager('2022-12-01', '2022-12-31')
+    # obj.get_data('2022-12-01', '2022-12-02')
     obj.download_file()
