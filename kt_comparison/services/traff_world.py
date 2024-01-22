@@ -272,5 +272,5 @@ class WWLTraffWorld:
 
 
 if __name__ == "__main__":
-    obj = WWLTraffWorld('2023-11-01', '2023-11-30')
+    obj = WWLTraffWorld('2023-06-01', '2023-06-30')
     obj.download_file()

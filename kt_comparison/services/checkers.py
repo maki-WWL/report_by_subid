@@ -201,14 +201,14 @@ class TraffManagerChecker:
 
         session.post('https://traff-manager.com/admin/', params=params, headers=headers, json=json_data)
         return session
+    
+    def _get_cookies(self):
+        return self.session.cookies.get_dict()
 
     def check_if_exist(self, subid: list[str]) -> list[str]:
         session = self.session
 
-        cookies = {
-            'states': 'v1eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJsb2dpbiI6IjkyYWJiNTNmODM1YTZmMWM2YzM5YWI5YzliNzU3ZGU2IiwicGFzc3dvcmQiOiIlMjQyeSUyNDEwJTI0RXBrand0WklkQW5HbmFvRXZwRHdqLlFvJTJGR0ptS3lhY20wNUxlYTRrcXdpUVVHcmdHUTk4bSIsInRpbWVzdGFtcCI6MTY5OTI2MzU3MX0.259o3FVLewfnPr2vFhm4ywCGmqU4yzyf7x5pxE6fDgA',
-            'keitaro': 'su9ds6glabmtkq8anehrcfvfdg',
-        }
+        cookies = self._get_cookies()
 
         headers = {
             'authority': 'traff-manager.com',
@@ -340,10 +340,7 @@ class ThirdKtChecker:
             return session
         
     def _get_cookies(self):
-        return {
-            'states': 'v1eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJsb2dpbiI6IjAwNGFhZmY2ZjA4ZDlmMDcxMDNkM2Y0ZTVkMzJmZTcxIiwicGFzc3dvcmQiOiIlMjQyeSUyNDEwJTI0d0lXaEphZ3dyT2dHZFFjaDdKbUVvZWpIcUxVV1N3SUFKMTFtMEVTZDU1Y2VoYVJkVTExaDYiLCJ0aW1lc3RhbXAiOjE3MDE2OTUyNzB9.SQB3RFdhLvFnov-3X_E2uG39CNnESMMDxhKUPw1KQak',
-            'keitaro': 'kek1bueuhpnmrgj5afsuoihsds',
-        }
+        return self.session.cookies.get_dict()
 
     def check_if_exist(self, subid: list[str]) -> list[str]:
         session = self.session
@@ -458,7 +455,7 @@ class ThirdKtChecker:
 
 if __name__ == "__main__":
     obj = WWLTraffWorldChecker()
-    delete_subid= obj.get_delete_list(['b29ct05hu59', 'rvmuoq60li8'])
+    delete_subid= obj.check_if_exist(['b29ct05hu59', 'rvmuoq60li8'])
     
     print(delete_subid)
 
