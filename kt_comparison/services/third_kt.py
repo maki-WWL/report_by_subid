@@ -91,52 +91,24 @@ class ThirdKt:
             'metrics': [
                 'clicks',
                 'campaign_unique_clicks',
+                'conversions',
+                'roi_confirmed',
+                'sale_revenue',
                 'revenue',
                 'profit',
-                'sale_revenue',
             ],
             'grouping': [
+                'sub_id',
                 'day',
                 'campaign',
-                'sub_id',
-                'campaign_id',
                 'offer',
                 'affiliate_network',
-                'ts',
             ],
             'filters': [
                 {
-                    'name': 'campaign_group_id',
-                    'operator': 'IN_LIST',
-                    'expression': [
-                        142,
-                        162,
-                        143,
-                        144,
-                        146,
-                        145,
-                        148,
-                        147,
-                        150,
-                        149,
-                        152,
-                        153,
-                        155,
-                        154,
-                        151,
-                        156,
-                        157,
-                        161,
-                        163,
-                        164,
-                        160,
-                        159,
-                        165,
-                        167,
-                        168,
-                        166,
-                        158,
-                    ],
+                    'name': 'revenue',
+                    'operator': 'NOT_EQUAL',
+                    'expression': '0',
                 },
             ],
             'sort': [
@@ -278,6 +250,6 @@ class ThirdKt:
 
 
 if __name__ == "__main__":
-    obj = ThirdKt('2023-11-01', '2023-11-30')
+    obj = ThirdKt('2024-01-01', '2024-01-29')
     # obj.get_data('2022-12-01', '2022-12-31')
     obj.download_file()

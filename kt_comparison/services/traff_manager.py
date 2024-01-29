@@ -57,69 +57,6 @@ class TraffManager:
         session = self.session
         print(date_from, date_to)
 
-        json_data = {
-            'range': {
-                'interval': 'custom_date_range',
-                'timezone': 'Europe/Kyiv',
-                'from': f'{date_from} 00:00',
-                'to': f'{date_to} 23:59',
-            },
-            'columns': [],
-            'metrics': [
-                'clicks',
-                'campaign_unique_clicks',
-                'sale_revenue',
-                'revenue',
-                'profit_confirmed',
-            ],
-            'grouping': [
-                'campaign',
-                'day',
-                'sub_id',
-                'campaign_id',
-                'offer',
-                # 'affiliate_network',
-                'ts',
-            ],
-            'filters': [
-                {
-                    'name': 'campaign_group_id',
-                    'operator': 'IN_LIST',
-                    'expression': [
-                        67,
-                        38,
-                        43,
-                        48,
-                        2,
-                        11,
-                        12,
-                        1,
-                        17,
-                        19,
-                        56,
-                    ],
-                },
-            ],
-            'sort': [
-                {
-                    'name': 'sub_id',
-                    'order': 'asc',
-                },
-            ],
-            'summary': True,
-            'offset': 0,
-            'format': 'csv',
-        }
-
-        if date_from == '2022-12-01':
-            json_data['grouping'] = [
-                'campaign',
-                'day',
-                'sub_id',
-                'campaign_id',
-                'offer',
-                'ts',
-            ]
         cookies = session.cookies.get_dict()
         headers = {
             'authority': 'traff-manager.com',
@@ -143,8 +80,42 @@ class TraffManager:
             'object': 'reports.build',
         }
 
-        time.sleep(5)
-        print(params, json_data, headers)
+        json_data = {
+            'range': {
+                'interval': 'custom_time_range',
+                'timezone': 'Europe/Kyiv',
+                'from': f'{date_from} 00:00',
+                'to': f'{date_to} 23:59',
+            },
+            'columns': [],
+            'metrics': [
+                'revenue',
+            ],
+            'grouping': [
+                'sub_id',
+                'day',
+                'campaign',
+                'offer',
+                'affiliate_network',
+            ],
+            'filters': [
+                {
+                    'name': 'revenue',
+                    'operator': 'NOT_EQUAL',
+                    'expression': '0',
+                },
+            ],
+            'sort': [
+                {
+                    'name': 'sub_id',
+                    'order': 'asc',
+                },
+            ],
+            'summary': True,
+            'offset': 0,
+            'format': 'csv',
+        }
+
         response = session.post('https://traff-manager.com/admin/', params=params, cookies=cookies, headers=headers, json=json_data)
         data = response.json()
         return data
@@ -154,7 +125,6 @@ class TraffManager:
         session = self.session
         
         date_range = get_date_list(self.date_from, self.date_to)
-        print(date_range)
         for month in date_range:
             try:
                 response = self.get_data(month[0], month[1])

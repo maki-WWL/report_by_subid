@@ -90,54 +90,20 @@ class WWLTraffWorld:
             },
             'columns': [],
             'metrics': [
-                'clicks',
-                'campaign_unique_clicks',
                 'revenue',
-                'profit',
-                'sale_revenue',
             ],
             'grouping': [
-                'campaign',
-                'day',
                 'sub_id',
-                'campaign_id',
+                'day',
+                'campaign',
                 'offer',
                 'affiliate_network',
-                'ts',
             ],
             'filters': [
                 {
-                    'name': 'campaign_group_id',
-                    'operator': 'IN_LIST',
-                    'expression': [
-                        12,
-                        6,
-                        7,
-                        4,
-                        16,
-                        5,
-                        65,
-                        9,
-                        63,
-                        64,
-                        62,
-                        161,
-                        175,
-                        176,
-                        155,
-                        77,
-                        78,
-                        79,
-                        80,
-                        81,
-                        82,
-                        83,
-                        86,
-                        87,
-                        85,
-                        84,
-                        144,
-                    ],
+                    'name': 'revenue',
+                    'operator': 'NOT_EQUAL',
+                    'expression': '0',
                 },
             ],
             'sort': [
@@ -150,18 +116,6 @@ class WWLTraffWorld:
             'offset': 0,
             'format': 'csv',
         }
-
-        if date_from == '2022-08-01':
-            json_data['grouping'] = [
-                'campaign',
-                'day',
-                'sub_id',
-                'campaign_id',
-                'offer',
-                'ts',
-            ]
-
-        
 
         response = session.post('https://wwltraffworld.com/admin/', params=params, cookies=self._get_cookies(), headers=self._get_headers(), json=json_data)
         return response.json()
