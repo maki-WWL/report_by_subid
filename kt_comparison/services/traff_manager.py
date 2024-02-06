@@ -104,6 +104,11 @@ class TraffManager:
                     'operator': 'NOT_EQUAL',
                     'expression': '0',
                 },
+                {
+                    'name': 'sub_id_30',
+                    'operator': 'NOT_EQUAL',
+                    'expression': 'TRAFFICBACK',
+                },
             ],
             'sort': [
                 {
