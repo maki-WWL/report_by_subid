@@ -43,6 +43,11 @@ def create_excel(dates_of_files: str, first_date_str: str, second_date_str: str,
 
         combined = pd.merge(df1, df2, on='SubId', how='outer', suffixes=('_file1', '_file2'))
 
+        if 'Revenue_file1' in combined.columns:
+            combined.rename(columns={'Revenue_file1': 'Доход_file1'}, inplace=True)
+        if 'Revenue_file2' in combined.columns:
+            combined.rename(columns={'Revenue_file2': 'Доход_file2'}, inplace=True)
+
         only_in_df1 = combined[combined['Доход_file2'].isna()]
         only_in_df2 = combined[combined['Доход_file1'].isna()]
 

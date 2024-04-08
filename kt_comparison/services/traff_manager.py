@@ -253,6 +253,6 @@ class TraffManager:
 
 
 if __name__ == "__main__":
-    obj = TraffManager('2022-12-01', '2022-12-31')
+    obj = TraffManager('2023-01-01', '2023-01-31')
     # obj.get_data('2022-12-01', '2022-12-02')
     obj.download_file()

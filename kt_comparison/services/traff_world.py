@@ -123,6 +123,7 @@ class WWLTraffWorld:
         }
 
         response = session.post('https://wwltraffworld.com/admin/', params=params, cookies=self._get_cookies(), headers=self._get_headers(), json=json_data)
+
         return response.json()
 
     def download_file(self):
@@ -231,5 +232,5 @@ class WWLTraffWorld:
 
 
 if __name__ == "__main__":
-    obj = WWLTraffWorld('2023-06-01', '2023-06-30')
+    obj = WWLTraffWorld('2023-01-01', '2023-01-31')
     obj.download_file()

@@ -104,5 +104,5 @@ backend = TelegramBackend(
     ],
 )
 
-lf = LoggerFlow(project_name="Report by SubID", backend=backend, disable=False)
+lf = LoggerFlow(project_name="Report by SubID", backend=backend, disable=True)
 lf.run()
