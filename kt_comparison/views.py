@@ -34,14 +34,14 @@ class IndexView(generic.View):
             formatted_date = get_month_range(from_date_month, to_date_month)
             print(formatted_date)
 
-            checkbox_tm = form.cleaned_data["checkbox_tm"]
+            # checkbox_tm = form.cleaned_data["checkbox_tm"]
             checkbox_tw = form.cleaned_data["checkbox_tw"]
             checkbox_kt_3 = form.cleaned_data["checkbox_kt_3"]
 
             created_files = []
-            if checkbox_tm:
-                create_excel(formatted_date, first_date_str, second_date_str, folder_path='kt_1')
-                created_files.append('result_kt_1.xlsx')
+            # if checkbox_tm:
+            #     create_excel(formatted_date, first_date_str, second_date_str, folder_path='kt_1')
+            #     created_files.append('result_kt_1.xlsx')
             if checkbox_tw:
                 create_excel(formatted_date, first_date_str, second_date_str, folder_path='kt_2')
                 created_files.append('result_kt_2.xlsx')

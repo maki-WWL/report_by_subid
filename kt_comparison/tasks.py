@@ -26,8 +26,8 @@ def run_script():
     # date_from_formatted = date_from.strftime('%Y-%m-%d')
     date_to_formatted = today.strftime('%Y-%m-%d')
     
-    tm = TraffManager('2022-05-01', date_to_formatted)
-    tm.download_file()
+    # tm = TraffManager('2022-05-01', date_to_formatted)
+    # tm.download_file()
 
     tw = WWLTraffWorld('2023-01-01', date_to_formatted)
     tw.download_file()

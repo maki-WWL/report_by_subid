@@ -78,12 +78,12 @@ def create_excel(dates_of_files: str, first_date_str: str, second_date_str: str,
 
         subids = df['SubId'].dropna().unique().tolist()
 
-        if folder_path == 'kt_1':
-            delete_subid = []
-            print(len(subids))
-            tm_checker = TraffManagerChecker()
-            delete_subid = tm_checker.get_delete_list(subids)
-            print(len(delete_subid))
+        # if folder_path == 'kt_1':
+        #     delete_subid = []
+        #     print(len(subids))
+        #     tm_checker = TraffManagerChecker()
+        #     delete_subid = tm_checker.get_delete_list(subids)
+        #     print(len(delete_subid))
 
         if folder_path == 'kt_2':
             wt_checker = WWLTraffWorldChecker()
